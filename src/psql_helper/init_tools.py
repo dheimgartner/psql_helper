@@ -26,6 +26,8 @@ import logging
 import sys
 import os
 import getpass
+import warnings
+
 from dotenv import find_dotenv, load_dotenv, dotenv_values, set_key
 
 from psql_helper import __version__
@@ -76,7 +78,7 @@ def db_set_up(db="MULTIMODALITY", dbname ="multimodality", host="id-hdb-psgr-ct1
     params = {"DB": db, "DBNAME": dbname, "HOST": host, "USER": user, "PORT": port}
 
     if (not install):
-        print("Env vars will not persist. Consider install=True")
+        warnings.warn("Env vars will not persist. Consider install=True")
         os.environ[db + "_DBNAME"] = dbname
         os.environ[db + "_HOST"] = host
         os.environ[db + "_USER"] = user
@@ -85,7 +87,7 @@ def db_set_up(db="MULTIMODALITY", dbname ="multimodality", host="id-hdb-psgr-ct1
 
     file = os.path.expanduser(path_env + "/.env")
 
-    if install:
+    else:
         # init .env file
         if missing_dotenv():
             try:
