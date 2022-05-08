@@ -77,6 +77,8 @@ def db_set_up(db="MULTIMODALITY", dbname ="multimodality", host="id-hdb-psgr-ct1
     existing_env = dotenv_values()
     params = {"DB": db, "DBNAME": dbname, "HOST": host, "USER": user, "PORT": port}
 
+    file = os.path.expanduser(path_env + "/.env")
+
     if (not install):
         warnings.warn("Env vars will not persist. Consider install=True")
         os.environ[db + "_DBNAME"] = dbname
@@ -84,8 +86,6 @@ def db_set_up(db="MULTIMODALITY", dbname ="multimodality", host="id-hdb-psgr-ct1
         os.environ[db + "_USER"] = user
         os.environ[db + "_PORT"] = port
         os.environ[db + "_PASSWORD"] = getpass.getpass()
-
-    file = os.path.expanduser(path_env + "/.env")
 
     else:
         # init .env file
